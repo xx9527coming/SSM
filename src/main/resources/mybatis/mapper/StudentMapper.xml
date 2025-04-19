@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.StudentDao">
+    <resultMap id="studentMap" type="com.example.entity.Student">
+        <id property="stuNO" column="stuNO"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="nation" column="nation"/>
+        <result property="telephone" column="telephone"/>
+        <result property="birthday" column="birthday"/>
+        <result property="address" column="address"/>
+        <result property="photo" column="photo"/>
+        <result property="resume" column="resume"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="studentMap">
+        SELECT * FROM student
+    </select>
+
+    <select id="findById" parameterType="int" resultMap="studentMap">
+        SELECT * FROM student WHERE stuNO = #{stuNO}
+    </select>
+
+    <insert id="save" parameterType="com.example.entity.Student">
+        INSERT INTO student(stuNO, name, sex, nation, telephone, birthday, address, photo, resume)
+        VALUES(#{stuNO}, #{name}, #{sex}, #{nation}, #{telephone}, #{birthday}, #{address}, #{photo}, #{resume})
+    </insert>
+
+    <update id="update" parameterType="com.example.entity.Student">
+        UPDATE student
+        SET name=#{name}, sex=#{sex}, nation=#{nation}, telephone=#{telephone},
+            birthday=#{birthday}, address=#{address}, photo=#{photo}, resume=#{resume}
+        WHERE stuNO=#{stuNO}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM student WHERE stuNO=#{stuNO}
+    </delete>
+</mapper>
